@@ -4,6 +4,7 @@ import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http'; //compatible con express
 
+import * as socket from '../sockets/socket'
 
 
 
@@ -44,6 +45,11 @@ export default class Server
 
         this.io.on('connection', cliente => {
             console.log('Cliente conectado');
+        
+        
+            socket.mensaje( cliente, this.io);
+            //Desconectar
+            socket.desconectar( cliente ); //coleccion de metodos del lado del server
         });//escuchar evento
 
 
