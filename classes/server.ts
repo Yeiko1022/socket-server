@@ -38,17 +38,22 @@ export default class Server {
 
 		this.io.on('connection', (cliente) => {
             //Conectar cliente
-            socket.conectarCliente( cliente );
+            socket.conectarCliente( cliente, this.io );
 
 			//Configurar Usuario
-			socket.configurarUsuario(cliente, this.io);
+            socket.configurarUsuario(cliente, this.io);
+            
+            //Obtener usuarios activos
+            socket.obtenerUsuarios(cliente, this.io);
 
 			// console.log('Cliente conectado');
-			console.log(cliente.id);
+            console.log(cliente.id);
+            
 			//Mensajes
-			socket.mensaje(cliente, this.io);
+            socket.mensaje(cliente, this.io);
+            
 			//Desconectar
-			socket.desconectar(cliente); //coleccion de metodos del lado del server
+			socket.desconectar(cliente, this.io); //coleccion de metodos del lado del server
 		}); //escuchar evento
 	} //es private porque solo se llama desde la inicialización de la clase
 
